@@ -86,6 +86,7 @@ public class TeacherController {
         double totalscore=0.0;
         for (Exam exam : list) {
             totalscore+=exam.getEfenzhi();
+            System.out.println(totalscore);
         }
         request.getSession().setAttribute("list", list);
         return new ResultInfo(true,""+totalscore);
