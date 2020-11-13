@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+    <div id="studiv">
+        <center>
+            <div id="listdiv">
+                <table border="1">
+                    <tr align="center" bgcolor="#00ffff">
+                        <th><input type="checkbox"/></th>
+                        <th>编号</th>
+                        <th>姓名</th>
+                        <th>年龄</th>
+                        <th>生日</th>
+                        <th>班级</th>
+                        <th>地址</th>
+                        <th colspan="11"><button @click="toAddStu()">新增</button></th>
+                    </tr>
+                    <tr v-for="stu in list">
+                        <td>
+                            <input type="checkbox" v-model="sids" v-bind:value="stu.sid"/>
+                        </td>
+                        <td>{{stu.sid}}</td>
+                        <td>{{stu.sname}}</td>
+                        <td>{{stu.age}}</td>
+                        <td>{{dateFormat(stu.birthday)}}</td>
+                        <td>{{stu.gb.gname}}</td>
+                        <td>{{stu.address}}</td>
+                        <td><a>删除</a></td>
+                        <td><a href="#" @click="findOne(stu.sid)">修改</a></td>
+                    </tr>
+                    <tr>
+                        <td colspan="11">
+                            <button @click="deleteStudentBatch()">批量删除</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="adddiv" style="display: none">
+                <table border="1" rules="all">
+                    <tr>
+                        <td>学生姓名</td>
+                        <td><input type="text" v-model="entity.sname"/></td>
+                    </tr>
+                    <tr>
+                        <td>年龄</td>
+                        <td><input type="number" v-model="entity.age"/></td>
+                    </tr>
+                    <tr>
+                        <td>生日</td>
+                        <td><input type="date" v-model="entity.birthday"/></td>
+                    </tr>
+                    <tr>
+                        <td>班级</td>
+                        <td>
+                            <select v-model="entity.gb.gid">
+                                <option v-for="g in gradelist" v-bind:value="g.gid">{{g.gname}}</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>地址</td>
+                        <td>
+                            <input type="text" v-model="entity.address">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="11">
+                            <select id="pro" @change="getCityList($event)">
+                                <option v-for="p in prolist" v-bind:value="p.id">{{p.cname}}</option>
+                            </select>省--
+                            <select id="city" @change="getCouList($event)">
+                                <option value="-1">--请选择市--</option>
+                                <option v-for="c in citylist" v-bind:value="c.id">
+                                    {{c.cname}}
+                                </option>
+                            </select>市--
+                            <select id="cou" @change="getCouName($event)">
+                                <option v-for="cou in coulist" v-bind:value="cou.id">{{cou.cname}}</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="11">
+                            <button @click="saveStuInfo()">保存</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </center>
+    </div>
+</body>
+<script type="text/javascript" src="vuejs/vuejs-2.5.16.js"></script>
+<script type="text/javascript" src="vuejs/axios-0.18.0.js"></script>
+<script type="text/javascript" src="stu_list.js"></script>
+</html>
